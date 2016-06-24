@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'pocketsmith', :git => 'https://github.com/willjasen/pocketsmith.git'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'

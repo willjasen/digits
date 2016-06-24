@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/willjasen/pocketsmith.git
+  revision: 37851055bc4f3a5b620edd697c70b7d9d6c59e14
+  specs:
+    pocketsmith (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -149,6 +155,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   jbuilder (~> 2.0)
   jquery-rails
+  pocketsmith!
   rails (= 4.2.6)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
