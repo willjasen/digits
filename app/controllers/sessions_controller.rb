@@ -3,10 +3,9 @@ require 'net/https'
 class SessionsController < ApplicationController
 
   def create
-    auth = request.env["omniauth.auth"]
-   
-    puts "Inspect: " + auth 
-   
+    
+    code = params[:code]
+    
     url = "https://api.pocketsmith.com/v2/oauth/access_token"
     client = HTTPClient.new
     body = { 
@@ -19,6 +18,8 @@ class SessionsController < ApplicationController
     
     res = client.post(url, body)
     
+    puts res.content    
+
     redirect_to '/', :notice => "Signed in!"
     #rl = URI.parse('https://api.pocketsmith.com/v2/oauth/access_token')
     #req = Net::HTTP::Post.new(url.path)
