@@ -3,36 +3,50 @@ require 'net/https'
 class SessionsController < ApplicationController
 
   def create
-    
-    code = params[:code]
-    
+        
     url = "https://api.pocketsmith.com/v2/oauth/access_token"
     client = HTTPClient.new
     body = { 
       grant_type: "authorization_code",
       client_id: Rails.application.secrets.pocketsmith_client_id,
-      client_secret: Rails.application.secrets.pocketsmith_client_secret,
+      client_secret: Rails.application.secrets.pocketsmith_client_secretk,
       redirect_uri: "https://digits.willjasen.com/pocketsmith/callback",
-      code: :code
+      code: params[:code]
     }
     
-    res = client.post(url, body)
+    if body[:client_secret].present?
+      res = client.post(url, body)
+      auth = JSON.parse(res.content)
+    else
+      puts "client_secret is nil..."
+    end
+   
+    response = Faraday.get do |req|
+      req.url "https://api.pocketsmith.com/v2/me" 
+      req.headers['Authorization'] = "Bearer #{auth['access_token']}"
+      puts req.headers  
+    end
+
+    response = JSON.parse(response.body)
     
-    puts res.content    
+    user = User.find_by_uid(response['id'])
+   
+    if user
+      puts "The user already exists!!"
+    else
+      user = User.create(
+               access_token: auth['access_token'],
+               token_type: auth['token_type'],
+               refresh_token: auth['refresh_token'],
+               uid: response['id'],
+               login: response['login']
+             )
+    end
+
+    session[:uid] = user.uid
 
     redirect_to '/', :notice => "Signed in!"
-    #rl = URI.parse('https://api.pocketsmith.com/v2/oauth/access_token')
-    #req = Net::HTTP::Post.new(url.path)
-    #req.form_data = data
-    #con = Net::HTTP.new(url.host, url.port)
-    #con.use_ssl = true
-    #con.start {|http| http.request(req)}    
-
-    #auth["code"]
-
-    #user = User.find_by_provider_and_uid(auth["provider"], auth["uid"]) || User.create_with_omniauth(auth)
-    #session[:user_id] = user.id
-    #redirect_to root_url, :notice => "Signed in!"
+    
   end
 
   def destroy
