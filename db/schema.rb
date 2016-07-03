@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160703191230) do
+ActiveRecord::Schema.define(version: 20160703221230) do
 
   create_table "users", force: :cascade do |t|
     t.string   "provider"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 20160703191230) do
     t.string   "access_token"
     t.string   "refresh_token"
     t.string   "token_type"
+    t.string   "login"
   end
 
 end
