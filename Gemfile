@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'pocketsmith', :git => 'https://github.com/willjasen/pocketsmith.git'
+gem 'pocketsmith', :git => 'https://github.com/willjasen/pocketsmith.git', :branch => 'development'
 gem 'omniauth-oauth2'
 gem 'httpclient'
 gem 'faraday'

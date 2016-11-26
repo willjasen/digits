@@ -1,8 +1,11 @@
 GIT
   remote: https://github.com/willjasen/pocketsmith.git
-  revision: 37851055bc4f3a5b620edd697c70b7d9d6c59e14
+  revision: 563996057cf00c70be28e0ddc62b21e2da029c6e
+  branch: development
   specs:
     pocketsmith (0.0.1)
+      faraday
+      json
 
 GEM
   remote: https://rubygems.org/
@@ -189,4 +192,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.12.5
+   1.13.6
